@@ -420,14 +420,11 @@ do(Operation, Body, Opts) ->
             try
                 {Response} = jiffy:decode(ResponseBody, [copy_strings]),
                 Type = case proplists:get_value(<<"__type">>, Response) of
-                           <<"com.amazonaws.dynamodb.v20120810#", T/binary>> ->
-                               T;
-                           <<"com.amazon.coral.validate#", T/binary>> ->
-                               T;
-                           <<"com.amazon.coral.service#", T/binary>> ->
-                               T;
-                           <<"com.amazonaws.dynamodb.v", T/binary>> ->
-                               T
+                           <<"com.amazonaws.dynamodb.v20120810#", T/binary>> -> T;
+                           <<"com.amazon.coral.validate#", T/binary>> -> T;
+                           <<"com.amazon.coral.availability#", T/binary>> -> T;
+                           <<"com.amazon.coral.service#", T/binary>> -> T;
+                           <<"com.amazonaws.dynamodb.v", T/binary>> -> T
                        end,
                 Message = case proplists:get_value(<<"message">>, Response) of
                               undefined ->
